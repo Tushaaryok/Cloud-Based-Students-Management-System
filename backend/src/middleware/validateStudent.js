@@ -34,7 +34,7 @@ const validateStudent = (req, res, next) => {
     }
 
     if (errors.length > 0) {
-        return res.status(400).json({ message: 'Validation field', errors })''
+        return res.status(400).json({ message: 'Validation field', errors });
     }
 
     next(); // if all are true then go next

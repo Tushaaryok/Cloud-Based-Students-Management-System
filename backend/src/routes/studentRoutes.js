@@ -26,7 +26,7 @@ router.get('/', getAllStudents);
 router.get('/:id', getStudentById);
 
 //PUT  /api/students/:id
-router.put('/:id', validateStudent updateStudent);
+router.put('/:id', validateStudent, updateStudent);
 
 //PATCH  /api/students/:id/status
 router.patch('/:id/status', deactivateStudent);
