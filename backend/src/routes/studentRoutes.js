@@ -14,8 +14,10 @@ const {
 
 } = require('../controllers/studentController');
 
+const validateStudent = require('../middleware/validateStudent');
+
 //POST  /api/students
-router.post('/', addStudent);
+router.post('/', validateStudent, addStudent);
 
 //GET  /api/students
 router.get('/', getAllStudents);
@@ -24,9 +26,9 @@ router.get('/', getAllStudents);
 router.get('/:id', getStudentById);
 
 //PUT  /api/students/:id
-router.get('/:id', updateStudent);
+router.put('/:id', validateStudent updateStudent);
 
 //PATCH  /api/students/:id/status
-router.get('/:id/status', deactivateStudent);
+router.patch('/:id/status', deactivateStudent);
 
 module.exports = router;

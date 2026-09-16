@@ -21,7 +21,7 @@ const addStudent = async (req, res) => {
         console.error(error);
 
         if(error.code ===  'ER_DUP_ENTRY') {
-            return res.status(409).json({ message: 'Enrollment No. and Email is already exists' });
+            return res.status(409).json({ message: 'Enrollment No. or Email already exists' });
         }
         res.status(500).json({ message: 'Server error', error: error.message });
     }
@@ -48,7 +48,7 @@ const getStudentById = async (req, res) => {
         const student = await studentModel.findStudentById(req.params.id); // from url
 
         if (!student) {
-            return res.status(404).json({ message: "Student doesn't find"});
+            return res.status(404).json({ message: "Student not find"});
         }
         res.status(200).json(student);
 
@@ -61,7 +61,7 @@ const getStudentById = async (req, res) => {
 // 4 Update Student -> Using  PUT
 const updateStudent = async (req, res) => {
     try {
-        const affectedRows = await studentModel.updateStudentById(res.params.id, req.body);
+        const affectedRows = await studentModel.updateStudentById(req.params.id, req.body);
 
         if (affectedRows === 0) {
             return res.status(404).json({ message: 'Student does not find' });
@@ -84,7 +84,7 @@ const deactivateStudent = async (req , res) => {
             return res.status(404).json({ message: 'Student does not find'});
         }
 
-        res.status(200).json({ message: 'Student deactived successfully' });
+        res.status(200).json({ message: 'Student deactivate successfully' });
     } catch (error) {
 
         console.error(error);

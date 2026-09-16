@@ -1,7 +1,7 @@
 // models/studentModel.js
 // this file only communication with database any req/res and for validation.
-// All function the run single query and return result 
-// Controller are call this files 
+// All function the run single query and return result
+// Controller are call this files
 
 const pool = require('../config/database');
 
@@ -24,12 +24,11 @@ const createStudent = async (data) => {
         division,
         admission_date,
     } = data;
-}
 
 const [result] = await pool.query(
     `INSERT INTO students (enrollment_no, first_name, last_name, email, phone,
     date_of_birth, gender, address, city, state, pincode, course, class_name,
-    division, admision_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    division, admission_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
         enrollment_no,
         first_name,
@@ -49,11 +48,14 @@ const [result] = await pool.query(
     ]
 );
 
+        return result.insertId;
+}
+
 //find all active students
 const findAllStudents = async (filters) => {
     const { course, class_name, division, search } = filters;
 
-    let sql = 'SELECT * FROM students WHERE status = "active"';
+    let sql = "SELECT * FROM students WHERE status = 'active'";
     const params = [];
 
     if (course) {
@@ -113,7 +115,7 @@ const updateStudentById = async (id, data) => {
     const [result] = await pool.query(
         `UPDATE students SET first_name = ?, last_name = ?, email = ?, phone = ?, date_of_birth = ?,
          gender = ?, address = ?, city = ?, state = ?, pincode = ?,
-         course = ?, class_name = ?, division = ?, update_at = CURRENT_TIMESTAMP
+         course = ?, class_name = ?, division = ?, updated_at = CURRENT_TIMESTAMP
      WHERE id = ?`,
      [
         first_name,
@@ -137,9 +139,9 @@ const updateStudentById = async (id, data) => {
 };
 
 // Deactivated students
-const deactivateStudent = async (id) => {
+const deactivateStudentById = async (id) => {
     const [result] = await pool.query('UPDATE students SET status = "inactive", updated_at = CURRENT_TIMESTAMP WHERE id = ?', [id]);
-    return result,affectedRows;
+    return result.affectedRows;
 };
 
 module.exports = {
