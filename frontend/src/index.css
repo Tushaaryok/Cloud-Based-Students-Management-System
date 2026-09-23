@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* If global resets/tweaks are ever needed, add them here below. */
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrolling works, but the scrollbar remains hidden — for areas like a sidebar. */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Edge/IE */
+  scrollbar-width: none; /* Firefox */
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-toast-in {
+  animation: toast-in 0.25s ease-out;
+}
