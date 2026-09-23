@@ -2,7 +2,7 @@
 // Gets the ID from the URL (/students/5/edit), fetches that student's data,
 // and displays the same StudentForm pre-filled that is used by AddStudent.
 
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import Breadcrumb from "../../components/common/Breadcrumb";
@@ -79,7 +79,7 @@ function EditStudent() {
 
             <PageHeader
             icon={EditIcon}
-            title="Edit student"
+            title="Edit Student"
             subtitle="Update the student record below.."
             />
 

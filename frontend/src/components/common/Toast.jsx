@@ -32,8 +32,8 @@ function Toast({ type = 'success', message, onClose, duration = 3500 }) {
     }, [onClose, duration]);
 
     return (
-        <div className="fixed top-6 left-1/2 z-[100] animate-toast-in">
-            <div className={`flex items-center gap-3 pl-3 pr-2.5 py-3 rounded-xl shadow-lg border max-w-sm
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]">
+            <div className={`animate-toast-in flex items-center gap-3 pl-3 pr-2.5 py-3 rounded-xl shadow-lg border max-w-sm
             ${isSuccess ? 'bg-white border-emerald-200' : 'bg-white border-red-200'}`}
             >
                 <span className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-white ${isSuccess ? 'bg-emerald-500' : 'bg-red-500'}`}>

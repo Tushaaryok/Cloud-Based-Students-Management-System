@@ -4,6 +4,7 @@
 // and an action bar at the bottom (Reset / Cancel / Save).
 
 import { useState } from "react";
+import { useToast } from "../../context/ToastContext";
 
 const emptyForm = {
     enrollment_no: '',
@@ -47,7 +48,7 @@ const COUNTRY_CODES = [
 ];
 
 const inputClass = 'w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 ' +
-  'focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition disabled:bg-slate-50 disabled:text-slate-500';
+    'focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition disabled:bg-slate-50 disabled:text-slate-500';
 
 function Label({ children, required }) {
     return (
@@ -104,7 +105,7 @@ const BookIcon = (
 function StudentForm({ initialData, onSubmit, onCancel, isEdit = false }) {
     const [formData, setFormData] = useState(initialData || emptyForm);
     const [submitting, setSubmitting] = useState(false);
-    const [error, setError] = useState('');
+    const showToast = useToast();
 
     const [showCustomCourse, setShowCustomCourse] = useState(
         !!(initialData?.course && !COURSES.includes(initialData.course))
@@ -132,18 +133,20 @@ function StudentForm({ initialData, onSubmit, onCancel, isEdit = false }) {
 
     const handleReset = () => {
         setFormData(initialData || emptyForm);
-        setError('');
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
         setSubmitting(true);
+
         try {
             await onSubmit(formData);
+
+            showToast('success', isEdit ? 'Student updated successfully' : 'Students added successfully');
             if (!isEdit) setFormData(emptyForm);
+            
         } catch (err) {
-            setError(err.response?.data?.message || 'Student could not be saved. Please try again.')
+            showToast('error', err.response?.data?.message || 'Student could not be saved. Please try again.')
         } finally {
             setSubmitting(false);
         }
@@ -151,12 +154,8 @@ function StudentForm({ initialData, onSubmit, onCancel, isEdit = false }) {
 
     return (
         <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+
             <div className="p-8 space-y-10">
-                {error && (
-                    <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg border border-red-200">
-                        {error}
-                    </div>
-                )}
 
                 {/* -- Personal Information -- */}
                 <section>
@@ -246,7 +245,7 @@ function StudentForm({ initialData, onSubmit, onCancel, isEdit = false }) {
                                 placeholder="Enter phone number"
                                 pattern="\d{10}"
                                 title="10 digit phone number"
-                                className={inputClass}
+                                className="flex-1 min-w-0 border-0 px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 outline-none focus:ring-0"
                             />
                             </div>
                         </div>
@@ -328,6 +327,19 @@ function StudentForm({ initialData, onSubmit, onCancel, isEdit = false }) {
                         rows="3"
                         className={inputClass + ' resize-y'}
                         />
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <Field label="City">
+                            <input
+                            type="text"
+                            name="city"
+                            value={formData.city}
+                            onChange={handleChange}
+                            placeholder="Enter city"
+                            className={inputClass}
+                            />
+                        </Field>
                     </div>
 
                     <div className="md:col-span-2">
