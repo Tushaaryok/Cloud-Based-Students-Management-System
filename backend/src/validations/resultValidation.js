@@ -1,11 +1,13 @@
-// validations/attendanceValidation.js
+// validations/resultValidation.js
 const Joi = require('joi');
  
-const attendanceSchema = Joi.object({
+const resultSchema = Joi.object({
   studentId: Joi.number().integer().required(),
   courseId: Joi.number().integer().required(),
-  date: Joi.date().required(),
-  status: Joi.string().valid('present', 'absent', 'late').required(),
+  semester: Joi.string().required(),
+  examType: Joi.string().required(),
+  marksObtained: Joi.number().min(0).required(),
+  maxMarks: Joi.number().min(1).required(),
 });
  
 const validate = (schema) => (req, res, next) => {
@@ -16,4 +18,5 @@ const validate = (schema) => (req, res, next) => {
   next();
 };
  
-module.exports = { attendanceSchema, validate };
+module.exports = { resultSchema, validate };
+ 
