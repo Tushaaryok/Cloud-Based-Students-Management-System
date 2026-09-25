@@ -31,6 +31,7 @@ const [result] = await pool.query(
     division, admission_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
         enrollment_no,
+        
         first_name,
         last_name,
         email,
