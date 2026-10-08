@@ -31,6 +31,7 @@ const [result] = await pool.query(
     division, admission_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
         enrollment_no,
+        
         first_name,
         last_name,
         email,
@@ -65,7 +66,7 @@ const findAllStudents = async (filters) => {
 
     if (class_name) {
         sql += ' AND class_name = ?';
-        params.push(division);
+        params.push(class_name);
     }
 
     if (division) {
@@ -74,7 +75,7 @@ const findAllStudents = async (filters) => {
     }
 
     if (search) {
-        sql += 'AND (first_name LIKE ? OR last_name LIKE ? OR enrollment_no LIKE ? )';
+        sql += ' AND (first_name LIKE ? OR last_name LIKE ? OR enrollment_no LIKE ?)';
         params.push(`%${search}%`, `%${search}%`, `%${search}%`);
     }
 
