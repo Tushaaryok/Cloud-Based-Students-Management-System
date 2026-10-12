@@ -8,6 +8,7 @@ const resultSchema = Joi.object({
   examType: Joi.string().required(),
   marksObtained: Joi.number().min(0).required(),
   maxMarks: Joi.number().min(1).required(),
+  grade: Joi.string().optional()
 });
  
 const validate = (schema) => (req, res, next) => {

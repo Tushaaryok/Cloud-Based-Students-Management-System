@@ -5,9 +5,9 @@ const express = require('express');
 const cors = require('cors');
 
 const studentRoutes = require('./src/routes/studentRoutes');
-const attendanceRoutes = require('./src/routes/attendanceRoutes');   // ← naya
-const subjectRoutes = require('./src/routes/subjectRoutes');         // ← naya
-const resultRoutes = require('./src/routes/resultRoutes');           // ← naya
+const attendanceRoutes = require('./src/routes/attendanceRoutes');   // ← Yauvan
+const subjectRoutes = require('./src/routes/subjectRoutes');         // ← Yauvan
+const resultRoutes = require('./src/routes/resultRoutes');           // ← Yauvan
 
 const app = express();
 
@@ -15,9 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/students', studentRoutes);
-app.use('/api/attendance', attendanceRoutes);   // ← naya
-app.use('/api/subjects', subjectRoutes);        // ← naya
-app.use('/api/results', resultRoutes);          // ← naya
+app.use('/api/attendance', attendanceRoutes);   // ← Yauvan
+app.use('/api/subjects', subjectRoutes);        // ← Yauvan
+app.use('/api/results', resultRoutes);          // ← Yauvan
 
 app.get('/', (req, res) => {
     res.send('Student Management API is running.....');

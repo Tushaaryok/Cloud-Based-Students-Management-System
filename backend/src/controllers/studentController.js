@@ -1,6 +1,5 @@
 // controllers/studentController.js
 
-
 const studentModel = require('../models/studentModel');
 
 // 1. Add Student
